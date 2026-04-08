@@ -1,0 +1,15 @@
+# Dependency directories
+node_modules/
+bun.lockb
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Build and IDE
+dist/
+.vscode/
+.idea/
+*.log
+.DS_Store
