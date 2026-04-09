@@ -24,22 +24,31 @@ Nexus Worker adalah *next-generation NATS consumer* yang dirancang untuk stabili
    bun install
    ```
 
-2. **Persiapkan Environment Variables:**
+3. **Persiapkan Environment Variables:**
    ```bash
    cp .env.example .env
    ```
-   *Edit file `.env` dan sesuaikan dengan konfigurasi NATS Anda.*
+   *Edit file `.env` dan sesuaikan dengan konfigurasi NATS Anda (termasuk `NATS_USER`, `NATS_PASS`, atau `NATS_TOKEN` jika diperlukan).*
 
-3. **Jalankan Worker (Mode Development):**
+4. **Jalankan Worker (Mode Development):**
    ```bash
    bun run dev
    ```
    *Perintah ini menggunakan fitur `--hot` dari Bun untuk *auto-reload* saat kode berubah.*
 
-4. **Jalankan Worker (Mode Production):**
+5. **Jalankan Worker (Mode Production):**
    ```bash
    bun run start
    ```
+
+## 💎 Code Quality (Linting & Formatting)
+
+Proyek ini menggunakan **BiomeJS** untuk menjaga kualitas kode dan konsistensi format. Pastikan untuk menjalankan perintah berikut sebelum melakukan *commit*:
+
+- **Format kode:** `bun run format`
+- **Linting kode:** `bun run lint`
+- **Check (Format & Lint sekaligus):** `bun run check`
+
 
 ## 🏗 Cara Menambahkan Pekerjaan (Job) Baru
 
