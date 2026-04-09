@@ -9,13 +9,14 @@ All new development, specifically creating new jobs, MUST follow the architectur
 `nexus-worker` is built with **Bun**, **TypeScript**, **NATS JetStream**, **Zod** (for schema validation), and **Pino** (for structured logging). It uses a clean, domain-driven architecture to ensure high reliability, type safety, and ease of maintenance.
 
 ### Core Architecture & Best Practices
-1. **Type-Safe Configuration (`src/config/env.ts`)**: All environment variables are strictly validated using Zod at startup. Never use `process.env` directly in job logic; always import `ENV` from `src/config/env.ts`.
+1. **Type-Safe Configuration (`src/config/env.ts`)**: All environment variables are strictly validated using Zod at startup. Never use `process.env` directly in job logic; always import `ENV` from `src/config/env.ts`. Ini juga termasuk variabel untuk autentikasi NATS (`NATS_USER`, `NATS_PASS`, `NATS_TOKEN`).
 2. **BaseJob Abstraction (`src/core/base-job.ts`)**: All new jobs MUST extend the `BaseJob<PayloadType>` abstract class. This class automatically handles:
    - Decoding the NATS message payload.
    - Validating the payload against a Zod schema.
    - Message Acknowledgment (`msg.ack()`) on success and Negative Acknowledgment (`msg.nak()`) on failure.
    - Structured logging with `traceId`.
 3. **Feature-Sliced Design (Domains)**: Jobs are grouped by their business domain (e.g., `src/domains/ticket/`, `src/domains/notification/`).
+4. **Code Quality Standards**: Seluruh kode WAJIB mengikuti standar BiomeJS (indentasi: space, quotes: single, semicolons: asNeeded). Gunakan `bun run format` sebelum melakukan commit.
 
 ## 🏗 How to Create a New Job (Instructions for Gemini CLI)
 
