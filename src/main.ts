@@ -5,7 +5,12 @@ import { SendWelcomeEmailJob } from './domains/notification/jobs/send-welcome-em
 
 async function bootstrap() {
   logger.info(`Menghubungkan ke NATS di ${ENV.NATS_URL}...`);
-  const nc = await connect({ servers: ENV.NATS_URL });
+  const nc = await connect({
+    servers: ENV.NATS_URL,
+    user: ENV.NATS_USER,
+    pass: ENV.NATS_PASS,
+    token: ENV.NATS_TOKEN,
+  });
   const js = nc.jetstream();
 
   // Daftarkan semua job di sini
