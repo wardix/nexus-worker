@@ -6,7 +6,10 @@
   "type": "module",
   "scripts": {
     "dev": "bun run --hot src/main.ts",
-    "start": "bun run src/main.ts"
+    "start": "bun run src/main.ts",
+    "format": "biome format --write .",
+    "lint": "biome lint --write --unsafe .",
+    "check": "biome check --write --unsafe ."
   },
   "dependencies": {
     "nats": "^2.28.2",
@@ -15,6 +18,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.10",
     "@types/bun": "latest",
     "@types/node": "^22.5.4",
     "typescript": "^5.0.0"
