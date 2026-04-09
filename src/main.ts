@@ -14,9 +14,7 @@ async function bootstrap() {
   const js = nc.jetstream();
 
   // Daftarkan semua job di sini
-  const registeredJobs = [
-    new SendWelcomeEmailJob(),
-  ];
+  const registeredJobs = [new SendWelcomeEmailJob()];
 
   const opts = consumerOpts();
   opts.durable(ENV.NATS_CONSUMER_NAME);
