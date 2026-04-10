@@ -14,5 +14,6 @@ ISSUES/
 dist/
 .vscode/
 .idea/
+.gemini/
 *.log
 .DS_Store
