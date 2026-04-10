@@ -2,6 +2,7 @@ import { connect, consumerOpts } from 'nats';
 import { ENV } from './config/env';
 import { logger } from './core/logger';
 import { SendWelcomeEmailJob } from './domains/notification/jobs/send-welcome-email.job';
+import { SyncIforteGraphsJob } from './domains/zabbix/jobs/sync-iforte-graphs.job';
 
 async function bootstrap() {
   logger.info(`Menghubungkan ke NATS di ${ENV.NATS_URL}...`);
@@ -14,7 +15,7 @@ async function bootstrap() {
   const js = nc.jetstream();
 
   // Daftarkan semua job di sini
-  const registeredJobs = [new SendWelcomeEmailJob()];
+  const registeredJobs = [new SendWelcomeEmailJob(), new SyncIforteGraphsJob()];
 
   const opts = consumerOpts();
   opts.durable(ENV.NATS_CONSUMER_NAME);
