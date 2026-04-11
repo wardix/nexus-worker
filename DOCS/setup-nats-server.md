@@ -47,11 +47,13 @@ nats stream add NEXUS_STREAM \
 ```
 
 ### B. Membuat Durable Consumer (`nexus_worker_group`)
-Consumer memastikan NATS mencatat posisi terakhir pesan yang sukses diproses (*offset management*). Nama consumer ini harus sama dengan `NATS_CONSUMER_NAME` di file `.env`.
+Secara *default*, Nexus Worker akan membuat *consumer* ini secara otomatis saat pertama kali dijalankan sebagai **Push Consumer**. Namun, jika Anda ingin membuat atau memvalidasinya secara manual melalui NATS CLI, pastikan menggunakan opsi `--target` (bukan `--pull`).
+
+Nama consumer dan target pengiriman harus sama dengan `NATS_CONSUMER_NAME` di file `.env`.
 
 ```bash
 nats consumer add NEXUS_STREAM nexus_worker_group \
-  --pull \
+  --target nexus_worker_group \
   --deliver all \
   --ack explicit \
   --replay instant \
