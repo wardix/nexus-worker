@@ -13,7 +13,7 @@ All new development, specifically creating new jobs, MUST follow the architectur
 2. **BaseJob Abstraction (`src/core/base-job.ts`)**: All new jobs MUST extend the `BaseJob<PayloadType>` abstract class. This class automatically handles:
    - Decoding the NATS message payload.
    - Validating the payload against a Zod schema.
-   - Message Acknowledgment (`msg.ack()`) on success and Negative Acknowledgment (`msg.nak()`) on failure.
+   - Message Acknowledgment (`msg.ack()`) on success, and Negative Acknowledgment (`msg.nak()`) with exponential backoff on failure (up to `MAX_RETRIES`, after which it uses `msg.term()`).
    - Structured logging with `traceId`.
 3. **Feature-Sliced Design (Domains)**: Jobs are grouped by their business domain (e.g., `src/domains/ticket/`, `src/domains/notification/`).
 4. **Code Quality Standards**: Seluruh kode WAJIB mengikuti standar BiomeJS (indentasi: space, quotes: single, semicolons: asNeeded). Gunakan `bun run format` sebelum melakukan commit.
