@@ -1,4 +1,5 @@
 import { type JsMsg, StringCodec } from 'nats';
+import { ENV } from '../config/env';
 import { logger } from './logger';
 
 const sc = StringCodec();
@@ -27,8 +28,21 @@ export abstract class BaseJob<PayloadType> {
       msg.ack();
       jobLogger.info('Pekerjaan selesai dengan sukses');
     } catch (error) {
-      jobLogger.error({ err: error }, 'Pekerjaan gagal');
-      msg.nak();
+      const currentAttempt = msg.info?.redeliveryCount || 1;
+      const retryCount = currentAttempt - 1;
+
+      jobLogger.error({ err: error, attempt: currentAttempt }, 'Pekerjaan gagal');
+
+      if (retryCount >= ENV.MAX_RETRIES) {
+        jobLogger.warn(
+          `Batas maksimal retry (${ENV.MAX_RETRIES}) tercapai. Memberhentikan pesan ini.`,
+        );
+        msg.term();
+      } else {
+        const delayMs = Math.pow(2, currentAttempt) * 1000;
+        jobLogger.info(`Akan mencoba ulang (retry ke-${retryCount + 1}) dalam ${delayMs}ms`);
+        msg.nak(delayMs);
+      }
     }
   }
 }

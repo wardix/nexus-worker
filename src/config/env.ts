@@ -16,6 +16,9 @@ const envSchema = z.object({
   IFORTE_ZABBIX_GRAPH_NAME_FILTER: z.string().default('NUSANET-'),
   IFORTE_GRAPH_ID_PREFIX: z.string().default('iforte-'),
 
+  // Worker Configuration
+  MAX_RETRIES: z.coerce.number().int().min(1).default(3),
+
   // NIS Sync Configuration
   NIS_GRAPH_SYNC_URL: z.string().url(),
   NIS_TOKEN: z.string().min(1),
