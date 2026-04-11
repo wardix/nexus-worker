@@ -81,15 +81,14 @@ export class SyncIforteGraphsJob extends BaseJob<Payload> {
       }
 
       logger.info('All batches synchronized successfully.');
-      } catch (error) {
+    } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error);
       logger.error(`Failed to sync Zabbix graphs: ${errorMessage}`);
       throw error;
-      }
-      }
+    }
+  }
 
-      private async zabbixRequest<T>(
-method: string, params: unknown, sessionid?: string): Promise<T> {
+  private async zabbixRequest<T>(method: string, params: unknown, sessionid?: string): Promise<T> {
     const headers: Record<string, string> = {
       'Content-Type': 'application/json-rpc',
     };
