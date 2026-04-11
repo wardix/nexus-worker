@@ -6,7 +6,7 @@ Nexus Worker adalah *next-generation NATS consumer* yang dirancang untuk stabili
 
 - **Type-Safe Configuration:** Validasi *environment variables* menggunakan Zod saat *booting*. Aplikasi tidak akan menyala jika konfigurasi tidak valid (Fail-fast).
 - **Type-Safe Message Payload:** Setiap pesan dari NATS divalidasi skemanya dengan Zod sebelum diproses, memastikan tidak ada data korup yang masuk ke logika bisnis.
-- **Boilerplate Reduction:** Menggunakan arsitektur `BaseJob` sehingga *developer* hanya perlu fokus menulis *business logic*. Urusan *Acknowledge* (ACK), *Negative Acknowledge* (NAK), penanganan *error*, dan ekstraksi *trace ID* sudah ditangani secara otomatis.
+- **Boilerplate Reduction:** Menggunakan arsitektur `BaseJob` sehingga *developer* hanya perlu fokus menulis *business logic*. Urusan *Acknowledge* (ACK), *Negative Acknowledge* (NAK) dengan *exponential backoff*, pembatasan *max retries*, penanganan *error*, dan ekstraksi *trace ID* sudah ditangani secara otomatis.
 - **Graceful Shutdown:** Saat server di-*restart* (misal via `SIGINT` atau `SIGTERM`), *worker* akan menyelesaikan pemrosesan pesan yang sedang berjalan terlebih dahulu sebelum mematikan koneksi secara aman, mencegah data *corrupt*.
 - **Structured Logging:** Menggunakan **Pino** untuk log berformat JSON yang kaya konteks (menyertakan `traceId` di setiap log).
 
