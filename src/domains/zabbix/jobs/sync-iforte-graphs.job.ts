@@ -12,9 +12,14 @@ interface SyncGraphData {
   subscriberId: string;
 }
 
+interface ZabbixGraphItem {
+  name: string;
+}
+
 interface ZabbixGraph {
   graphid: string;
   name: string;
+  items?: ZabbixGraphItem[];
 }
 
 interface ZabbixRPCResponse<T> {
@@ -53,7 +58,8 @@ export class SyncIforteGraphsJob extends BaseJob<Payload> {
       // 3. Prepare data to sync
       const syncData: SyncGraphData[] = graphs
         .map((graph) => {
-          const match = graph.name.match(/(\d+):(\d+)/);
+          const firstItemName = graph.items?.[0]?.name ?? '';
+          const match = firstItemName.match(/(\d+):(\d+)/);
           if (!match) return null;
 
           return {
@@ -140,6 +146,7 @@ export class SyncIforteGraphsJob extends BaseJob<Payload> {
         output: ['graphid', 'name'],
         search: { name: ENV.IFORTE_ZABBIX_GRAPH_NAME_FILTER },
         startSearch: true,
+        selectItems: ['name'],
         sortfield: 'graphid',
         sortOrder: 'ASC',
       },
