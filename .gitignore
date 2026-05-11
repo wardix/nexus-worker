@@ -5,6 +5,10 @@ bun.lockb
 # Issues scratchpad
 ISSUES/
 
+# Scratchpad/temp files
+x.ts
+debug.ts
+
 # Environment variables
 .env
 .env.*
