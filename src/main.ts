@@ -1,6 +1,7 @@
 import { connect, consumerOpts } from 'nats';
 import { ENV } from './config/env';
 import { logger } from './core/logger';
+import { SendFbstarReminderJob } from './domains/notification/jobs/send-fbstar-reminder.job';
 import { SendWelcomeEmailJob } from './domains/notification/jobs/send-welcome-email.job';
 import { SyncIforteGraphsJob } from './domains/zabbix/jobs/sync-iforte-graphs.job';
 
@@ -15,7 +16,11 @@ async function bootstrap() {
   const js = nc.jetstream();
 
   // Daftarkan semua job di sini
-  const registeredJobs = [new SendWelcomeEmailJob(), new SyncIforteGraphsJob()];
+  const registeredJobs = [
+    new SendWelcomeEmailJob(),
+    new SyncIforteGraphsJob(),
+    new SendFbstarReminderJob(),
+  ];
 
   const opts = consumerOpts();
   opts.durable(ENV.NATS_CONSUMER_NAME);
