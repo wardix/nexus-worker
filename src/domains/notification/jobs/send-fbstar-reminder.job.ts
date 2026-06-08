@@ -82,8 +82,22 @@ export class SendFbstarReminderJob extends BaseJob<Payload> {
       tickets.sort((a, b) => a.timestamp_unix - b.timestamp_unix);
 
       const messageLines = tickets.map(
-        ({ ticket_number, circuit_id, category, age_hours }) =>
-          `- ${ticket_number} ${circuit_id} ${category} ${age_hours} jam`,
+        ({ ticket_number, circuit_id, category, age_hours }) => {
+          let alertIcon = '';
+          if (age_hours >= 24) {
+            alertIcon = '🚨';
+          } else if (age_hours >= 18) {
+            alertIcon = '⚠️';
+          }
+
+          let durationText = `${age_hours} jam`;
+          if (age_hours >= 48) {
+            const days = Math.floor(age_hours / 24);
+            durationText = `${days}+ hari`;
+          }
+
+          return `- ${alertIcon}${ticket_number} ${circuit_id} ${category} ${durationText}`;
+        },
       );
 
       const fullMessage = `mohon dibantu tindak lanjut tiket berikut ini:\n${messageLines.join('\n')}`;
