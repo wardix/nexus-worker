@@ -111,7 +111,7 @@ export class SendFbstarReminderJob extends BaseJob<Payload> {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          to: ENV.WA_TARGET_NUMBER,
+          to: ENV.WA_FBSTAR_TARGET_NUMBER,
           body: 'text',
           text: fullMessage,
         }),
