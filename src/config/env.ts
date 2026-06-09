@@ -22,7 +22,6 @@ const envSchema = z.object({
   // NIS Sync Configuration
   NIS_GRAPH_SYNC_URL: z.string().url(),
   NIS_TOKEN: z.string().min(1),
-  NIS_GATEWAY_API_TOKEN: z.string().min(1),
 
   // Notification Job (FBStar Reminder)
   PROM_TICKETS_URL: z.string().url().default('https://metrics.example.com/operator-tickets'),
