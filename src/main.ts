@@ -4,7 +4,7 @@ import { logger } from './core/logger';
 import { SendFbstarReminderJob } from './domains/notification/jobs/send-fbstar-reminder.job';
 import { SendWelcomeEmailJob } from './domains/notification/jobs/send-welcome-email.job';
 import { SyncIforteGraphsJob } from './domains/zabbix/jobs/sync-iforte-graphs.job';
-import { SendIforteTicketReminderJob } from './domains/ticket/jobs/send-iforte-ticket-reminder.job';
+import { SendIforteTicketReminderJob } from './domains/notification/jobs/send-iforte-ticket-reminder.job';
 
 async function bootstrap() {
   logger.info(`Menghubungkan ke NATS di ${ENV.NATS_URL}...`);

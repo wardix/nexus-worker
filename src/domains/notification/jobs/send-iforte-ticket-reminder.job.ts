@@ -30,7 +30,7 @@ export class SendIforteTicketReminderJob extends BaseJob<Payload> {
     logger.info('Mulai mengambil data tiket iForte dari NIS Gateway...');
 
     try {
-      const response = await fetch('https://transit.is5x.nusa.net.id/nis-gateway/ticket/iforte', {
+      const response = await fetch(ENV.NIS_IFORTE_TICKETS_URL, {
         headers: {
           accept: 'application/json',
           Authorization: `Bearer ${ENV.NIS_TOKEN}`,
