@@ -41,7 +41,8 @@ export class SendIforteTicketReminderJob extends BaseJob<Payload> {
         throw new Error(`Gagal mengambil tiket iForte: ${response.statusText}`);
       }
 
-      const tickets: IforteTicket[] = await response.json();
+      const responseData = await response.json();
+      const tickets: IforteTicket[] = responseData.results || [];
 
       if (tickets.length === 0) {
         logger.info('Tidak ada data tiket iForte.');
