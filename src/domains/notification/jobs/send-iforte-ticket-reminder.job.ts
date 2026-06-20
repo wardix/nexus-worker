@@ -64,7 +64,7 @@ export class SendIforteTicketReminderJob extends BaseJob<Payload> {
         return new Date(a.insert_time).getTime() - new Date(b.insert_time).getTime();
       });
 
-      const messageLines = openTickets.map((ticket) => {
+      const messageLines = openTickets.map((ticket, index) => {
         const insertDate = new Date(ticket.insert_time);
         const ageHours = Math.floor((Date.now() - insertDate.getTime()) / (1000 * 3600));
 
@@ -83,7 +83,7 @@ export class SendIforteTicketReminderJob extends BaseJob<Payload> {
           durationText = `${days}+ hari`;
         }
 
-        return `- ${alertIcon}${acIcon}${ticket.customer_id}:${ticket.subscriber_id} ${ticket.subscriber_name} ${ticket.ticket_subject} ${durationText}`;
+        return `${index + 1}. ${alertIcon}${acIcon}${ticket.customer_id}:${ticket.subscriber_id} ${ticket.subscriber_name} ${ticket.ticket_subject} ${durationText}`;
       });
 
       const fullMessage = `Mohon dibantu tindak lanjut tiket berikut ini:\n\n${messageLines.join('\n')}`;

@@ -82,7 +82,7 @@ export class SendFbstarReminderJob extends BaseJob<Payload> {
       tickets.sort((a, b) => a.timestamp_unix - b.timestamp_unix);
 
       const messageLines = tickets.map(
-        ({ ticket_number, circuit_id, category, age_hours }) => {
+        ({ ticket_number, circuit_id, category, age_hours }, index) => {
           let alertIcon = '';
           if (age_hours >= 24) {
             alertIcon = '🚨';
@@ -96,7 +96,7 @@ export class SendFbstarReminderJob extends BaseJob<Payload> {
             durationText = `${days}+ hari`;
           }
 
-          return `- ${alertIcon}${ticket_number} ${circuit_id} ${category} ${durationText}`;
+          return `${index + 1}. ${alertIcon}${ticket_number} ${circuit_id} ${category} ${durationText}`;
         },
       );
 
