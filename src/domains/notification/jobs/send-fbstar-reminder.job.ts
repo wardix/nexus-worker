@@ -96,7 +96,8 @@ export class SendFbstarReminderJob extends BaseJob<Payload> {
             durationText = `${days}+ hari`;
           }
 
-          return `${index + 1}. ${alertIcon}${ticket_number} ${circuit_id} ${category} ${durationText}`;
+          const categoryText = category !== 'unknown' ? ` ${category}` : '';
+          return `${index + 1}. ${alertIcon}${ticket_number} ${circuit_id}${categoryText} ${durationText}`;
         },
       );
 
