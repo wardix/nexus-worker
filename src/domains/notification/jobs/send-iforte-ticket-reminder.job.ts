@@ -4,7 +4,9 @@ import { ENV } from '../../../config/env';
 import { BaseJob } from '../../../core/base-job';
 import { logger } from '../../../core/logger';
 
-const PayloadSchema = z.object({});
+const PayloadSchema = z.object({
+  to: z.string().optional(),
+});
 
 type Payload = z.infer<typeof PayloadSchema>;
 
@@ -26,7 +28,7 @@ export class SendIforteTicketReminderJob extends BaseJob<Payload> {
     return PayloadSchema.parse(data);
   }
 
-  protected async handle(_payload: Payload, _msg: JsMsg): Promise<void> {
+  protected async handle(payload: Payload, _msg: JsMsg): Promise<void> {
     logger.info('Mulai mengambil data tiket iForte dari NIS Gateway...');
 
     try {
@@ -97,7 +99,7 @@ export class SendIforteTicketReminderJob extends BaseJob<Payload> {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          to: ENV.WA_IFORTE_TARGET_NUMBER,
+          to: payload.to ?? ENV.WA_IFORTE_TARGET_NUMBER,
           body: 'text',
           text: fullMessage,
         }),
