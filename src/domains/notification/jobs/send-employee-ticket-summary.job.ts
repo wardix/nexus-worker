@@ -21,7 +21,7 @@ interface EmployeeSummary {
 }
 
 export class SendEmployeeTicketSummaryJob extends BaseJob<Payload> {
-  readonly subject = 'notification.reminder.employee-ticket-summary';
+  readonly subject = 'notification.report.employee-ticket-summary';
 
   protected validatePayload(data: unknown): Payload {
     return PayloadSchema.parse(data);
@@ -69,10 +69,8 @@ export class SendEmployeeTicketSummaryJob extends BaseJob<Payload> {
 
       const messageLines = employees.map((emp, index) => {
         let alertIcon = '';
-        if (emp.total_tickets >= 10) {
-          alertIcon = '🚨';
-        } else if (emp.total_tickets >= 5) {
-          alertIcon = '⚠️';
+        if (emp.total_tickets >= 7) {
+          alertIcon = '💎';
         }
 
         const ticketList = emp.tickets.join(', ');
