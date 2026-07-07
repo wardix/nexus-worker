@@ -30,6 +30,12 @@ const envSchema = z.object({
   WA_API_TOKEN: z.string().min(1),
   WA_FBSTAR_TARGET_NUMBER: z.string().min(1),
   WA_IFORTE_TARGET_NUMBER: z.string().min(1),
+
+  // Notification Job (Employee Ticket Summary)
+  NIS_EMPLOYEE_SUMMARY_URL: z.string().url(),
+  WA_TICKET_SUMMARY_TARGET_NUMBER: z.string().min(1),
+  DEFAULT_DEPARTMENT_ID: z.coerce.number().int().default(34),
+  DEFAULT_EXCLUDED_EMPLOYEE_IDS: z.string().default(''),
 });
 
 const parsed = envSchema.safeParse(process.env);
