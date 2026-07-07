@@ -5,6 +5,7 @@ import { SendFbstarReminderJob } from './domains/notification/jobs/send-fbstar-r
 import { SendWelcomeEmailJob } from './domains/notification/jobs/send-welcome-email.job';
 import { SyncIforteGraphsJob } from './domains/zabbix/jobs/sync-iforte-graphs.job';
 import { SendIforteTicketReminderJob } from './domains/notification/jobs/send-iforte-ticket-reminder.job';
+import { SendEmployeeTicketSummaryJob } from './domains/notification/jobs/send-employee-ticket-summary.job';
 
 async function bootstrap() {
   logger.info(`Menghubungkan ke NATS di ${ENV.NATS_URL}...`);
@@ -22,6 +23,7 @@ async function bootstrap() {
     new SyncIforteGraphsJob(),
     new SendFbstarReminderJob(),
     new SendIforteTicketReminderJob(),
+    new SendEmployeeTicketSummaryJob(),
   ];
 
   const opts = consumerOpts();
