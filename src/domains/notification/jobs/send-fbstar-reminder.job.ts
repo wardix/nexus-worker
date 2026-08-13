@@ -103,7 +103,7 @@ export class SendFbstarReminderJob extends BaseJob<Payload> {
         },
       );
 
-      const fullMessage = `mohon dibantu tindak lanjut tiket berikut ini:\n${messageLines.join('\n')}`;
+      const fullMessage = `rekan fiberstar, mohon dibantu tindak lanjut tiket berikut ini:\n${messageLines.join('\n')}`;
 
       logger.info(`Mengirim ${tickets.length} reminder tiket ke WhatsApp...`);
 

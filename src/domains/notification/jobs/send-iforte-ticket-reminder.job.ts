@@ -88,7 +88,7 @@ export class SendIforteTicketReminderJob extends BaseJob<Payload> {
         return `${index + 1}. ${alertIcon}${acIcon}${ticket.customer_id}:${ticket.subscriber_id} ${ticket.subscriber_name} ${ticket.ticket_subject} ${durationText}`;
       });
 
-      const fullMessage = `Mohon dibantu tindak lanjut tiket berikut ini:\n\n${messageLines.join('\n')}`;
+      const fullMessage = `rekan iforte, mohon dibantu tindak lanjut tiket berikut ini:\n\n${messageLines.join('\n')}`;
 
       logger.info(`Mengirim ${openTickets.length} reminder tiket iForte ke WhatsApp...`);
 
